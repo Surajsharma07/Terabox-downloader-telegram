@@ -16,7 +16,7 @@ const sendFile = async (item, ctx) => {
       const shortenedUrl = await shortenUrl(item);
       if (shortenedUrl) {
         await ctx.replyWithMarkdown(
-          `Click [here](${shortenedUrl}) to download the file.\n\n_Please note that the original URL may still be accessible._`
+          `Click here to download the file: ${shortenedUrl}\n\n_Please note that the original URL may still be accessible._`
         );
       } else {
         ctx.reply("Error occurred while shortening URL. Please try again later.");
