@@ -1,5 +1,5 @@
 async function main() {
-  const { Telegraf, Markup } = require("telegraf");
+  const { Telegraf } = require("telegraf");
   const { getDetails } = require("./api");
   const { sendFile } = require("./utils");
   const express = require("express");
@@ -8,9 +8,7 @@ async function main() {
 
   bot.start(async (ctx) => {
     try {
-      ctx.reply(
-        `Hi ${ctx.message.from.first_name},\n\nI can Download Files from TB by @Iam_zeer0\n\n.
-      );
+      ctx.reply(`Hi ${ctx.message.from.first_name},\n\nI can Download Files from TB by @Iam_zeer0\n\n.`);
     } catch (e) {
       console.error(e);
     }
@@ -21,17 +19,13 @@ async function main() {
       const messageText = ctx.message.text;
       if (
         messageText.includes("terabox.com") ||
-        messageText.includes("teraboxapp.com")
+        messageText.includes("teraboxapp.com")||
+        messageText.includes("1024tera.com")
       ) {
-        //const parts = messageText.split("/");
-        //const linkID = parts[parts.length - 1];
-
-        // ctx.reply(linkID)
-
         const details = await getDetails(messageText);
         if (details && details.direct_link) {
           try {
-            ctx.reply(`Sending Files Please Wait.!!`);
+            ctx.reply(`Sending Files. Please Wait.!`);
             sendFile(details.direct_link, ctx);
           } catch (e) {
             console.error(e); // Log the error for debugging
@@ -43,8 +37,6 @@ async function main() {
       } else {
         ctx.reply("Please send a valid Terabox link.");
       }
-    } else {
-      //ctx.reply("No message text found.");
     }
   });
 
