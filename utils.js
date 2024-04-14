@@ -1,12 +1,11 @@
-const fetch = require("node-fetch");
+const axios = require("axios");
 
 const shortenUrl = async (url) => {
   try {
-    const response = await fetch(`https://tinyurl.com/api-create.php?url=${url}`);
-    const shortenedUrl = await response.text();
-    return shortenedUrl;
+    const response = await axios.get(`https://tinyurl.com/api-create.php?url=${url}`);
+    return response.data;
   } catch (error) {
-    console.error("Error shortening URL:", error);
+    console.error("Error shortening URL:", error.message);
     return null; // Return null in case of error
   }
 };
@@ -23,7 +22,7 @@ const sendFile = async (item, ctx) => {
         ctx.reply("Error occurred while shortening URL. Please try again later.");
       }
     } catch (e) {
-      console.error("Error sending file:", e);
+      console.error("Error sending file:", e.message);
       ctx.reply("An error occurred while sending the file. Please try again later.");
     }
   }
